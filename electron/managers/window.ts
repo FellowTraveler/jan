@@ -21,13 +21,15 @@ export class WindowManager {
   createWindow(options?: Electron.BrowserWindowConstructorOptions | undefined) {
     this.currentWindow = new BrowserWindow({
       width: 1200,
-      minWidth: 1200,
+      minWidth: 375,
       height: 800,
+      minHeight: 667,
       show: true,
       trafficLightPosition: {
         x: 8,
         y: 8,
       },
+      frame: true,
       titleBarStyle: 'hiddenInset',
       vibrancy: 'sidebar',
       ...options,

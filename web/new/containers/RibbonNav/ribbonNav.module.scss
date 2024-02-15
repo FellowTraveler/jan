@@ -10,7 +10,7 @@
 
   .icon {
     @apply relative flex w-full flex-shrink-0 cursor-pointer items-center justify-center;
-    color: hsl(var(--ribbon-nav-icon-fg));
+    color: hsl(var(--ribbon-nav-icon-fg, var(--app-muted)));
   }
 
   .iconIsActive {

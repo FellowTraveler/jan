@@ -24,11 +24,13 @@ const ThreadSettings: React.FC = () => {
       minSize={16}
       maxSize={40}
       defaultSize={28}
+      order={3}
+      id="ThreadSettingsPanel"
       className={twMerge(isMobile && '!flex-auto', styles.threadSettings)}
     >
       <ScrollArea className={styles.listPanel}>
         <div className="p-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => {
+          {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => {
             return (
               <p key={x}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
@@ -37,7 +39,7 @@ const ThreadSettings: React.FC = () => {
                 consectetur! Animi illum non maxime nisi doloribus.
               </p>
             )
-          })}
+          })} */}
         </div>
         {isMobile && <ScrollBar orientation="horizontal" />}
       </ScrollArea>

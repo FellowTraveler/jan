@@ -137,3 +137,8 @@ export const setThreadModelParamsAtom = atom(
     set(threadModelParamsAtom, currentState)
   }
 )
+
+/**
+ * Store config thread list show or hide
+ */
+export const threadListLeftPanelAtom = atom(true)

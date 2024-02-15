@@ -39,7 +39,7 @@ const BaseLayout = (props: PropsWithChildren) => {
           <m.div
             key={mainViewState}
             initial={{ opacity: 0, y: -8 }}
-            className="h-full"
+            className="h-full w-full"
             animate={{
               opacity: 1,
               y: 0,

@@ -1,16 +1,18 @@
-import { Button } from '@janhq/joi'
-import { useAtomValue } from 'jotai'
-import { PlusIcon } from 'lucide-react'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { PenSquareIcon, PanelRightOpenIcon } from 'lucide-react'
 
 import { useCreateNewThread } from '@/hooks/useCreateNewThread'
 
 import styles from './createNewThread.module.scss'
 
 import { assistantsAtom } from '@/helpers/atoms/Assistant.atom'
+import { threadListLeftPanelAtom } from '@/helpers/atoms/Thread.atom'
 
 const CreateNewThread = () => {
   const assistants = useAtomValue(assistantsAtom)
+  const setThreadListLeftPanel = useSetAtom(threadListLeftPanelAtom)
   const { requestCreateNewThread } = useCreateNewThread()
+
   const onCreateConversationClick = async () => {
     if (assistants.length === 0) {
       alert('No assistant available')
@@ -20,15 +22,17 @@ const CreateNewThread = () => {
   }
   return (
     <div className={styles.createNewThread}>
-      <Button
-        size="small"
-        variant="soft"
+      <PanelRightOpenIcon
+        size={20}
+        className="cursor-pointer unset-drag"
+        onClick={() => setThreadListLeftPanel(false)}
+      />
+      <PenSquareIcon
+        data-testid="btn-create-thread"
+        size={20}
+        className="cursor-pointer unset-drag"
         onClick={onCreateConversationClick}
-        block
-      >
-        <span className="mr-2">New Thread </span>
-        <PlusIcon size={16} />
-      </Button>
+      />
     </div>
   )
 }

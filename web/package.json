@@ -24,7 +24,7 @@
     "highlight.js": "^11.9.0",
     "jotai": "^2.6.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.291.0",
+    "lucide-react": "^0.331.0",
     "marked": "^9.1.2",
     "marked-highlight": "^2.0.6",
     "next": "14.0.1",

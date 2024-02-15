@@ -1,6 +1,6 @@
 .threadList {
   .listPanel {
-    @apply whitespace-pre md:h-full md:whitespace-normal;
+    @apply whitespace-pre h-full md:whitespace-normal;
     border-right: 1px solid hsl(var(--app-border));
   }
 }
