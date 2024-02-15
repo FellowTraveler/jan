@@ -18,8 +18,6 @@ import SystemItem from '@/containers/Layout/BottomBar/SystemItem'
 import CommandListDownloadedModel from '@/containers/Layout/TopBar/CommandListDownloadedModel'
 import ProgressBar from '@/containers/ProgressBar'
 
-import { appDownloadProgress } from '@/containers/Providers/Jotai'
-
 import { showSelectModelModalAtom } from '@/containers/Providers/KeyListener'
 import ShortCut from '@/containers/Shortcut'
 
@@ -30,6 +28,8 @@ import { useActiveModel } from '@/hooks/useActiveModel'
 import { modelDownloadStateAtom } from '@/hooks/useDownloadState'
 import useGetSystemResources from '@/hooks/useGetSystemResources'
 import { useMainViewState } from '@/hooks/useMainViewState'
+
+import { appDownloadProgressAtom } from '@/helpers/atoms/AppDownload.atom'
 
 import { serverEnabledAtom } from '@/helpers/atoms/LocalServer.atom'
 import { downloadedModelsAtom } from '@/helpers/atoms/Model.atom'
@@ -55,7 +55,7 @@ const menuLinks = [
 const BottomBar = () => {
   const { activeModel, stateModel } = useActiveModel()
   const { watch, stopWatching } = useGetSystemResources()
-  const progress = useAtomValue(appDownloadProgress)
+  const progress = useAtomValue(appDownloadProgressAtom)
   const downloadedModels = useAtomValue(downloadedModelsAtom)
   const gpus = useAtomValue(gpusAtom)
   const cpu = useAtomValue(cpuUsageAtom)

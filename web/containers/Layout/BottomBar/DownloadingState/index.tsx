@@ -9,7 +9,6 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@janhq/uikit'
-
 import { useAtomValue } from 'jotai'
 
 import useDownloadModel from '@/hooks/useDownloadModel'

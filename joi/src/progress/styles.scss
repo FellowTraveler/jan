@@ -1,16 +1,17 @@
-@import "../../styles/bases.scss";
+@import '../../styles/bases.scss';
 
 .progress {
-  background-color: hsl(var(--bg-primary), 14%);
-  border-radius: var(--radius-large);
+  background-color: hsl(var(--app-primary), 14%);
+  border-radius: var(--app-radius-large);
   position: relative;
+  width: 100%;
   overflow: hidden;
   @apply transition-all;
 
   &--indicator {
-    background-color: hsl(var(--bg-primary));
+    background-color: hsl(var(--app-primary));
     position: absolute;
-    border-radius: var(--radius-large);
+    border-radius: var(--app-radius-large);
     width: 100%;
     height: 100%;
   }

@@ -1,28 +1,28 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes } from 'react'
 
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from 'class-variance-authority'
 
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge'
 
-import "./styles.scss";
+import './styles.scss'
 
-const progressVariants = cva("progress", {
+const progressVariants = cva('progress', {
   variants: {
     size: {
-      small: "progress--small",
-      medium: "progress--medium",
-      large: "progress--large",
+      small: 'progress--small',
+      medium: 'progress--medium',
+      large: 'progress--large',
     },
   },
   defaultVariants: {
-    size: "medium",
+    size: 'medium',
   },
-});
+})
 
 export interface ProgressProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof progressVariants> {
-  value: number;
+  value: number
 }
 
 const Progress = ({ className, size, value, ...props }: ProgressProps) => {
@@ -33,7 +33,7 @@ const Progress = ({ className, size, value, ...props }: ProgressProps) => {
         className="progress--indicator"
       />
     </div>
-  );
-};
+  )
+}
 
-export { Progress };
+export { Progress }

@@ -1,5 +1,5 @@
 .bottomBar {
-  @apply relative left-[72px] h-10 flex-shrink-0 flex items-center px-4;
+  @apply relative left-[72px] h-10 flex-shrink-0 flex items-center px-4 text-xs justify-between;
   width: calc(100% - 72px);
   background-color: hsl(var(--bottom-bar-bg));
   color: hsl(var(--bottom-bar-fg));

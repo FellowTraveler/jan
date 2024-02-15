@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo } from 'react'
 
-import { Model } from '@janhq/core'
+import { ExtensionTypeEnum, Model, MonitoringExtension } from '@janhq/core'
 import { Tooltip, Badge, Button } from '@janhq/joi'
 
 import { atom, useAtomValue } from 'jotai'
@@ -15,6 +15,7 @@ import useDownloadModel from '@/hooks/useDownloadModel'
 
 import { modelDownloadStateAtom } from '@/hooks/useDownloadState'
 
+import useGetSystemResources from '@/hooks/useGetSystemResources'
 import { useMainViewState } from '@/hooks/useMainViewState'
 
 import { toGibibytes } from '@/utils/converter'
@@ -34,12 +35,14 @@ type Props = {
   model: Model
 }
 
-const HubHeaderItem: React.FC<Props> = ({ model }) => {
+const HubHeaderItem = ({ model }: Props) => {
   const { downloadModel } = useDownloadModel()
   const downloadedModels = useAtomValue(downloadedModelsAtom)
   const { requestCreateNewThread } = useCreateNewThread()
   const totalRam = useAtomValue(totalRamAtom)
   const nvidiaTotalVram = useAtomValue(nvidiaTotalVramAtom)
+  // useGetSystemResources()
+  // console.log(rom)
   // Default nvidia returns vram in MB, need to convert to bytes to match the unit of totalRamW
   let ram = nvidiaTotalVram * 1024 * 1024
   if (ram === 0) {
@@ -104,7 +107,6 @@ const HubHeaderItem: React.FC<Props> = ({ model }) => {
   }
 
   const getLabel = (size: number) => {
-    if (!size) return
     if (size * 1.25 >= ram) {
       return (
         <Badge theme="destructive" variant="soft" size="small">

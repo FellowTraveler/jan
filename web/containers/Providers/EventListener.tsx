@@ -10,11 +10,11 @@ import { setDownloadStateAtom } from '@/hooks/useDownloadState'
 
 import EventHandler from './EventHandler'
 
-import { appDownloadProgress } from './Jotai'
+import { appDownloadProgressAtom } from '@/helpers/atoms/AppDownload.atom'
 
 const EventListenerWrapper = ({ children }: PropsWithChildren) => {
   const setDownloadState = useSetAtom(setDownloadStateAtom)
-  const setProgress = useSetAtom(appDownloadProgress)
+  const setAppDownloadProgress = useSetAtom(appDownloadProgressAtom)
 
   const onFileDownloadUpdate = useCallback(
     async (state: DownloadState) => {
@@ -59,7 +59,7 @@ const EventListenerWrapper = ({ children }: PropsWithChildren) => {
     if (window && window.electronAPI) {
       window.electronAPI.onAppUpdateDownloadUpdate(
         (_event: string, progress: any) => {
-          setProgress(progress.percent)
+          setAppDownloadProgress(progress.percent)
           console.debug('app update progress:', progress.percent)
         }
       )
@@ -67,16 +67,16 @@ const EventListenerWrapper = ({ children }: PropsWithChildren) => {
       window.electronAPI.onAppUpdateDownloadError(
         (_event: string, callback: any) => {
           console.error('Download error', callback)
-          setProgress(-1)
+          setAppDownloadProgress(-1)
         }
       )
 
       window.electronAPI.onAppUpdateDownloadSuccess(() => {
-        setProgress(-1)
+        setAppDownloadProgress(-1)
       })
     }
     return () => {}
-  }, [setDownloadState, setProgress])
+  }, [setDownloadState, setAppDownloadProgress])
 
   return <EventHandler>{children}</EventHandler>
 }
