@@ -1,9 +1,9 @@
-import React, { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
+import React, { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react'
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge'
 
-import "./styles.scss";
+import './styles.scss'
 
 const ScrollArea = forwardRef<
   ElementRef<typeof ScrollAreaPrimitive.Root>,
@@ -11,7 +11,7 @@ const ScrollArea = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
-    className={twMerge("scroll-area", className)}
+    className={twMerge('scroll-area', className)}
     {...props}
   >
     <ScrollAreaPrimitive.Viewport className="scroll-area-viewport">
@@ -20,27 +20,27 @@ const ScrollArea = forwardRef<
     <ScrollBar />
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
-));
+))
 
 const ScrollBar = forwardRef<
   ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
->(({ className, orientation = "vertical", ...props }, ref) => (
+>(({ className, orientation = 'vertical', ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar
     ref={ref}
     orientation={orientation}
     className={twMerge(
-      "scroll-bar",
-      orientation === "vertical" && "scroll-bar-vertical",
-      orientation === "horizontal" && "scroll-bar-horizontal ",
+      'scroll-bar',
+      orientation === 'vertical' && 'scroll-bar-vertical',
+      orientation === 'horizontal' && 'scroll-bar-horizontal ',
       className
     )}
     {...props}
   >
     <ScrollAreaPrimitive.ScrollAreaThumb
-      className={twMerge("scroll-bar-thumb flex-1")}
+      className={twMerge('scroll-bar-thumb flex-1')}
     />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
-));
+))
 
-export { ScrollArea, ScrollBar };
+export { ScrollArea, ScrollBar }

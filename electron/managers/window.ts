@@ -25,8 +25,8 @@ export class WindowManager {
       height: 800,
       show: true,
       trafficLightPosition: {
-        x: 10,
-        y: 15,
+        x: 8,
+        y: 8,
       },
       titleBarStyle: 'hiddenInset',
       vibrancy: 'sidebar',

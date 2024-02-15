@@ -4,7 +4,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import '../../node_modules/@janhq/uikit/dist/index.css';
+@import '@janhq/joi/dist/style/joi.css';
+
+// @import '../../node_modules/@janhq/uikit/dist/index.css';
 
 @import './base/global.scss';
 

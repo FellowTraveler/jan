@@ -1,0 +1,9 @@
+.topBar {
+  background-color: hsl(var(--top-bar-bg));
+  color: hsl(var(--top-bar-fg));
+  border-bottom: 1px solid hsl(var(--top-bar-border, var(--app-border)));
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  z-index: 40;
+  @apply h-10 w-full flex-shrink-0;
+}

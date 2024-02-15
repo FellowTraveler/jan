@@ -1,4 +1,4 @@
-@import "../../styles/bases.scss";
+@import '../../styles/bases.scss';
 
 .scroll-area {
   @apply relative;
@@ -18,6 +18,6 @@
   }
   &-thumb {
     @apply relative z-50 w-[10px] rounded-full;
-    background-color: hsl(var(--app-scroll-bar, var(--app-fg), 20%));
+    background-color: hsl(var(--app-scroll-bar, var(--app-fg)));
   }
 }

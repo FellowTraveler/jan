@@ -76,23 +76,24 @@ const Providers = (props: PropsWithChildren) => {
 
   return (
     <JotaiWrapper>
-      <ThemeWrapper>
-        <Umami />
-        {settingUp && <Loader description="Preparing Update..." />}
-        {setupCore && activated && (
-          <KeyListener>
-            <FeatureToggleWrapper>
+      <Umami />
+      {settingUp && <Loader description="Preparing Update..." />}
+      {setupCore && activated && (
+        <KeyListener>
+          <FeatureToggleWrapper>
+            <ThemeWrapper>
               <EventListenerWrapper>
+                {/* CLEANUP UI @faisal tooltip should be using new component */}
                 <TooltipProvider delayDuration={0}>
                   <DataLoader>{children}</DataLoader>
                 </TooltipProvider>
                 {!isMac && <GPUDriverPrompt />}
               </EventListenerWrapper>
               <Toaster />
-            </FeatureToggleWrapper>
-          </KeyListener>
-        )}
-      </ThemeWrapper>
+            </ThemeWrapper>
+          </FeatureToggleWrapper>
+        </KeyListener>
+      )}
     </JotaiWrapper>
   )
 }

@@ -1,0 +1,5 @@
+.createNewThread {
+  @apply flex items-center p-4 sticky top-0;
+  background-color: hsl(var(--app-bg));
+  border-bottom: 1px solid hsl(var(--app-border));
+}
