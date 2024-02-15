@@ -14,6 +14,7 @@ import LocalServerScreen from '@/screens/LocalServer'
 import SettingsScreen from '@/screens/Settings'
 import SystemMonitorScreen from '@/screens/SystemMonitor'
 
+import HubScreen from '@/new/screens/Hub'
 import ThreadScreen from '@/new/screens/Thread'
 
 export default function Page() {
@@ -21,9 +22,9 @@ export default function Page() {
 
   let children = null
   switch (mainViewState) {
-    // case MainViewState.Hub:
-    //   children = <ExploreModelsScreen />
-    //   break
+    case MainViewState.Hub:
+      children = <HubScreen />
+      break
 
     // case MainViewState.Settings:
     //   children = <SettingsScreen />

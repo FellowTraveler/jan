@@ -5,7 +5,7 @@
   color: hsl(var(--tooltip-fg, var(--app-bg)));
   border-radius: var(--tooltip-radius, var(--app-radius-medium));
   max-width: 200px;
-  @apply px-3 py-2 z-50;
+  @apply px-3 py-2 z-50 font-medium;
 
   &--arrow {
     fill: hsl(var(--tooltip-bg, var(--app-fg)));

@@ -41,4 +41,8 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  html {
+    background-color: var(--app-bg);
+  }
 }
