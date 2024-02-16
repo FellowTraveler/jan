@@ -1,38 +1,39 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes } from 'react'
 
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from 'class-variance-authority'
 
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge'
 
-import "./styles.scss";
+import './styles.scss'
 
-const badgeVariants = cva("badge", {
+const badgeVariants = cva('badge', {
   variants: {
     theme: {
-      primary: "badge--primary",
-      secondary: "badge--secondary",
-      warning: "badge--warning",
-      success: "badge--success",
-      info: "badge--info",
-      destructive: "badge--destructive",
+      primary: 'badge--primary',
+      secondary: 'badge--secondary',
+      warning: 'badge--warning',
+      success: 'badge--success',
+      info: 'badge--info',
+      destructive: 'badge--destructive',
+      ghost: 'badge--ghost',
     },
     variant: {
-      solid: "badge--solid",
-      soft: "badge--soft",
-      outline: "badge--outline",
+      solid: 'badge--solid',
+      soft: 'badge--soft',
+      outline: 'badge--outline',
     },
     size: {
-      small: "badge--small",
-      medium: "badge--medium",
-      large: "badge--large",
+      small: 'badge--small',
+      medium: 'badge--medium',
+      large: 'badge--large',
     },
   },
   defaultVariants: {
-    theme: "primary",
-    size: "medium",
-    variant: "solid",
+    theme: 'primary',
+    size: 'medium',
+    variant: 'solid',
   },
-});
+})
 
 export interface BadgeProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -44,7 +45,7 @@ const Badge = ({ className, theme, size, variant, ...props }: BadgeProps) => {
       className={twMerge(badgeVariants({ theme, size, variant, className }))}
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Badge };
+export { Badge }

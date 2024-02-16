@@ -1,0 +1,6 @@
+.systemMonitor {
+  @apply fixed h-[calc(400px-40px)] left-[72px] bottom-10 backdrop-blur-sm p-4 z-10;
+  width: calc(100% - 72px);
+  background-color: hsl(var(--app-bg), 90%);
+  border-top: 1px solid hsl(var(--app-border));
+}

@@ -109,6 +109,21 @@
     }
   }
 
+  &--ghost {
+    @apply text-inherit;
+    background-color: transparent;
+
+    // Variant soft info
+    &.badge--soft {
+      background-color: transparent;
+    }
+
+    // Variant outline info
+    &.badge--outline {
+      background-color: transparent;
+    }
+  }
+
   // Size
   &--small {
     @apply h-5;

@@ -1,16 +1,10 @@
 import { Progress } from '@janhq/joi'
 import { useAtomValue } from 'jotai'
 
-import useDownloadModel from '@/hooks/useDownloadModel'
 import { modelDownloadStateAtom } from '@/hooks/useDownloadState'
-
-import { getDownloadingModelAtom } from '@/helpers/atoms/Model.atom'
 
 const DownloadModelProgress = () => {
   const downloadStates = useAtomValue(modelDownloadStateAtom)
-  const downloadingModels = useAtomValue(getDownloadingModelAtom)
-
-  const { abortModelDownload } = useDownloadModel()
 
   const totalCurrentProgress = Object.values(downloadStates)
     .map((a) => a.size.transferred + a.size.transferred)
