@@ -48,10 +48,10 @@ const ThreadScreen = () => {
         className="w-full "
       >
         {threadListLeftPanel && (
-          <>
+          <Fragment>
             <ThreadList />
             <ResizableHandle disabled={isMobile} />
-          </>
+          </Fragment>
         )}
         <ThreadBody />
         <ResizableHandle disabled={isMobile} />

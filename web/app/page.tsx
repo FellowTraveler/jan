@@ -15,6 +15,7 @@ import SettingsScreen from '@/screens/Settings'
 import SystemMonitorScreen from '@/screens/SystemMonitor'
 
 import HubScreen from '@/new/screens/Hub'
+
 import ThreadScreen from '@/new/screens/Thread'
 
 export default function Page() {
@@ -26,9 +27,9 @@ export default function Page() {
       children = <HubScreen />
       break
 
-    // case MainViewState.Settings:
-    //   children = <SettingsScreen />
-    //   break
+    case MainViewState.Settings:
+      children = <SettingsScreen />
+      break
 
     // case MainViewState.SystemMonitor:
     //   children = <SystemMonitorScreen />

@@ -20,6 +20,8 @@
 
   .statePointer {
     @apply absolute inset-0 left-0 h-full w-full rounded-md;
-    background-color: hsl(var(--ribbon-nav-icon-active-bg, var(--app-primary)));
+    background-color: hsl(
+      var(--ribbon-nav-icon-active-bg, var(--app-muted), 10%)
+    );
   }
 }

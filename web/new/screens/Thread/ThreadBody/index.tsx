@@ -1,5 +1,4 @@
-import { ResizablePanel } from '@janhq/joi'
-import { ScrollArea } from '@janhq/uikit'
+import { ResizablePanel, ScrollArea } from '@janhq/joi'
 
 import ThreadTitle from './ThreadTitle'
 
