@@ -10,7 +10,10 @@
   "version": "1.0",
   "description": "OpenAI GPT 4 with Vision model is extremely good in preview",
   "format": "api",
-  "settings": {},
+  "settings": {
+    "visionModel": true,
+    "textModel": false
+  },
   "parameters": {
     "max_tokens": 4096,
     "temperature": 0.7
@@ -19,6 +22,5 @@
     "author": "OpenAI",
     "tags": ["General", "Big Context Length", "Vision"]
   },
-  "visionModel": true,
   "engine": "openai"
 }
