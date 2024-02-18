@@ -276,8 +276,8 @@ const Advanced = () => {
                     <div className="px-4 pb-2">
                       <div className="rounded-lg bg-secondary p-3">
                         {gpuList
-                          .filter((gpu) =>
-                            gpu.name?.toLowerCase().includes('nvidia')
+                          .filter(
+                            (gpu) => gpu.name?.toLowerCase().includes('nvidia')
                           )
                           .map((gpu) => (
                             <div
