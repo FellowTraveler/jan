@@ -21,7 +21,7 @@ export default function useSetActiveThread() {
 
   const setActiveThread = async (thread: Thread) => {
     // Load local messages only if there are no messages in the state
-    if (!readyMessageThreads[thread.id]) {
+    if (!readyMessageThreads[thread?.id]) {
       const messages = await getLocalThreadMessage(thread.id)
       setThreadMessage(thread.id, messages)
     }
