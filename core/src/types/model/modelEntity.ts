@@ -8,6 +8,7 @@ export type ModelInfo = {
   parameters: ModelRuntimeParams
   engine?: InferenceEngine
   proxyEngine?: InferenceEngine
+  visionModel?: boolean
 }
 
 /**
@@ -96,7 +97,7 @@ export type Model = {
   proxyEngine?: InferenceEngine
 
   /**
-   * Is multimodal or not.
+   * Support vision or not.
    */
   visionModel?: boolean
 }
