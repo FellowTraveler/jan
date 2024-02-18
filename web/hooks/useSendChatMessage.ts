@@ -238,13 +238,15 @@ export default function useSendChatMessage() {
       modelRequest = {
         ...modelRequest,
         engine: InferenceEngine.tool_retrieval_enabled,
-        proxyEngine: modelRequest.engine,
+        proxy_model: modelRequest.engine,
       }
 
       // Add support for vision model with tool retrieval enabled
-      if (modelRequest.visionModel) {
-        modelRequest.engine = modelRequest.proxyEngine
-        modelRequest.proxyEngine = null
+      if (
+        modelRequest.settings.visionModel &&
+        !modelRequest.settings.textModel
+      ) {
+        modelRequest.engine = modelRequest.proxy_model
       }
     }
     const messageRequest: MessageRequest = {
