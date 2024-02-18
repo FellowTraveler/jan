@@ -29,5 +29,6 @@
     "tags": ["Vision"],
     "size": 5750000000
   },
+  "visionModel": true,
   "engine": "nitro"
 }
