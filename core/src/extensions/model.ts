@@ -1,5 +1,5 @@
 import { BaseExtension, ExtensionTypeEnum } from '../extension'
-import { Model, ModelInterface } from '../index'
+import { Model, ModelInterface, OptionType } from '../index'
 
 /**
  * Model extension for managing models.
@@ -21,4 +21,11 @@ export abstract class ModelExtension extends BaseExtension implements ModelInter
   abstract saveModel(model: Model): Promise<void>
   abstract getDownloadedModels(): Promise<Model[]>
   abstract getConfiguredModels(): Promise<Model[]>
+  abstract importModel(path: string, optionType: OptionType): Promise<Model>
+  abstract updateModelInfo(
+    modelId: string,
+    modelName: string,
+    modelDescription: string,
+    modelTags: string[]
+  ): Promise<Model>
 }

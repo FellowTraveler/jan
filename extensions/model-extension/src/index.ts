@@ -13,6 +13,7 @@ import {
   DownloadRoute,
   ModelEvent,
   DownloadState,
+  OptionType,
 } from '@janhq/core'
 
 import { extractFileName } from './helpers/path'
@@ -158,18 +159,18 @@ export default class JanModelExtension extends ModelExtension {
 
   /**
    * Cancels the download of a specific machine learning model.
+   *
    * @param {string} modelId - The ID of the model whose download is to be cancelled.
    * @returns {Promise<void>} A promise that resolves when the download has been cancelled.
    */
   async cancelModelDownload(modelId: string): Promise<void> {
-    const model = await this.getConfiguredModels()
-    return abortDownload(
-      await joinPath([JanModelExtension._homeDir, modelId, modelId])
-    ).then(async () => {
-      fs.unlinkSync(
-        await joinPath([JanModelExtension._homeDir, modelId, modelId])
-      )
-    })
+    const path = await joinPath([JanModelExtension._homeDir, modelId, modelId])
+    try {
+      await abortDownload(path)
+      await fs.unlinkSync(path)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   /**
@@ -389,7 +390,7 @@ export default class JanModelExtension extends ModelExtension {
         llama_model_path: binaryFileName,
       },
       created: Date.now(),
-      description: `${dirName} - user self import model`,
+      description: '',
       metadata: {
         size: binaryFileSize,
         author: 'User',
@@ -453,6 +454,144 @@ export default class JanModelExtension extends ModelExtension {
           events.emit(DownloadEvent.onFileDownloadSuccess, state)
         }
       )
+    }
+  }
+
+  private async importModelSymLink(
+    modelBinaryPath: string,
+    modelFolderName: string,
+    modelFolderPath: string
+  ): Promise<Model> {
+    const fileStats = await fs.fileStat(modelBinaryPath, true)
+    const binaryFileSize = fileStats.size
+
+    // Just need to generate model.json there
+    const defaultModel = (await this.getDefaultModel()) as Model
+    if (!defaultModel) {
+      console.error('Unable to find default model')
+      return
+    }
+
+    const binaryFileName = extractFileName(modelBinaryPath, '')
+
+    const model: Model = {
+      ...defaultModel,
+      id: modelFolderName,
+      name: modelFolderName,
+      sources: [
+        {
+          url: modelBinaryPath,
+          filename: binaryFileName,
+        },
+      ],
+      settings: {
+        ...defaultModel.settings,
+        llama_model_path: binaryFileName,
+      },
+      created: Date.now(),
+      description: '',
+      metadata: {
+        size: binaryFileSize,
+        author: 'User',
+        tags: [],
+      },
+    }
+
+    const modelFilePath = await joinPath([
+      modelFolderPath,
+      JanModelExtension._modelMetadataFileName,
+    ])
+
+    await fs.writeFileSync(modelFilePath, JSON.stringify(model, null, 2))
+
+    return model
+  }
+
+  async updateModelInfo(
+    modelId: string,
+    modelName: string,
+    modelDescription: string,
+    modelTags: string[]
+  ): Promise<Model> {
+    const janDataFolderPath = await getJanDataFolderPath()
+    const jsonFilePath = await joinPath([
+      janDataFolderPath,
+      'models',
+      modelId,
+      JanModelExtension._modelMetadataFileName,
+    ])
+    const model = JSON.parse(
+      await this.readModelMetadata(jsonFilePath)
+    ) as Model
+
+    const updatedModel: Model = {
+      ...model,
+      name: modelName,
+      description: modelDescription,
+      metadata: {
+        ...model.metadata,
+        tags: modelTags,
+      },
+    }
+
+    await fs.writeFileSync(jsonFilePath, JSON.stringify(updatedModel, null, 2))
+    return updatedModel
+  }
+
+  async importModel(path: string, optionType: OptionType): Promise<Model> {
+    const binaryName = extractFileName(path, '')
+
+    let modelFolderName = binaryName
+    if (binaryName.endsWith(JanModelExtension._supportedModelFormat)) {
+      modelFolderName = binaryName.replace(
+        JanModelExtension._supportedModelFormat,
+        ''
+      )
+    }
+
+    const modelFolderPath = await this.getModelFolderName(modelFolderName)
+    await fs.mkdirSync(modelFolderPath)
+
+    const uniqueFolderName = modelFolderPath.split('/').pop()
+    const modelBinaryFile = binaryName.endsWith(
+      JanModelExtension._supportedModelFormat
+    )
+      ? binaryName
+      : `${binaryName}${JanModelExtension._supportedModelFormat}`
+
+    const binaryPath = await joinPath([modelFolderPath, modelBinaryFile])
+
+    if (optionType === 'SYMLINK') {
+      return this.importModelSymLink(path, uniqueFolderName, modelFolderPath)
+    }
+
+    await fs.copyFileSync(path, binaryPath)
+
+    // generate model json
+    return this.generateModelMetadata(uniqueFolderName)
+  }
+
+  private async getModelFolderName(
+    modelFolderName: string,
+    count?: number
+  ): Promise<string> {
+    const newModelFolderName = count
+      ? `${modelFolderName}-${count}`
+      : modelFolderName
+
+    const janDataFolderPath = await getJanDataFolderPath()
+    const modelFolderPath = await joinPath([
+      janDataFolderPath,
+      'models',
+      newModelFolderName,
+    ])
+
+    const isFolderExist = await fs.existsSync(modelFolderPath)
+    if (!isFolderExist) {
+      return modelFolderPath
+    } else {
+      const newCount = (count ?? 0) + 1
+      return this.getModelFolderName(modelFolderName, newCount)
     }
   }
 }

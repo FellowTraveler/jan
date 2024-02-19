@@ -1,6 +1,5 @@
 import { join } from 'path'
 import fs from 'fs'
-import { FileManagerRoute } from '../../../api'
 import { appResourcePath, normalizeFilePath } from '../../helper/path'
 import { getJanDataFolderPath, getJanDataFolderPath as getPath } from '../../helper'
 import { Processor } from './Processor'
@@ -48,10 +47,12 @@ export class FSExt implements Processor {
   }
 
   // handle fs is directory here
-  fileStat(path: string) {
+  async fileStat(path: string, outsideJanDataFolder?: boolean): Promise<FileStat | undefined> {
     const normalizedPath = normalizeFilePath(path)
 
-    const fullPath = join(getJanDataFolderPath(), normalizedPath)
+    const fullPath = outsideJanDataFolder
+      ? normalizedPath
+      : join(getJanDataFolderPath(), normalizedPath)
     const isExist = fs.existsSync(fullPath)
     if (!isExist) return undefined
 

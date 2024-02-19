@@ -32,4 +32,16 @@ export const removeDownloadingModelAtom = atom(
 
 export const downloadedModelsAtom = atom<Model[]>([])
 
+export const removeDownloadedModelAtom = atom(
+  null,
+  (get, set, modelId: string) => {
+    const downloadedModels = get(downloadedModelsAtom)
+
+    set(
+      downloadedModelsAtom,
+      downloadedModels.filter((e) => e.id !== modelId)
+    )
+  }
+)
+
 export const configuredModelsAtom = atom<Model[]>([])

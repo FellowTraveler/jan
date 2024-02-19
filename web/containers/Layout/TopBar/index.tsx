@@ -39,7 +39,7 @@ const TopBar = () => {
   const [showRightSideBar, setShowRightSideBar] = useAtom(showRightSideBarAtom)
   const [showLeftSideBar, setShowLeftSideBar] = useAtom(showLeftSideBarAtom)
   const showing = useAtomValue(showRightSideBarAtom)
-  const { onReviewInFinder, onViewJson } = usePath()
+  const { onRevealInFinder, onViewJson } = usePath()
   const [more, setMore] = useState(false)
   const [menu, setMenu] = useState<HTMLDivElement | null>(null)
   const [toggle, setToggle] = useState<HTMLDivElement | null>(null)
@@ -151,7 +151,7 @@ const TopBar = () => {
                         <div
                           className="flex cursor-pointer items-center space-x-2 px-4 py-2 hover:bg-secondary"
                           onClick={() => {
-                            onReviewInFinder('Thread')
+                            onRevealInFinder('Thread')
                             setMore(false)
                           }}
                         >
@@ -195,7 +195,7 @@ const TopBar = () => {
                         <div
                           className="flex cursor-pointer items-center space-x-2 px-4 py-2 hover:bg-secondary"
                           onClick={() => {
-                            onReviewInFinder('Model')
+                            onRevealInFinder('Model')
                             setMore(false)
                           }}
                         >
