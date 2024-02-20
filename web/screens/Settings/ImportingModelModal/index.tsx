@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import { ModelEvent, events } from '@janhq/core'
+import { ModelEvent, events, openFileExplorer } from '@janhq/core'
 import {
   Button,
   Modal,
@@ -34,7 +34,7 @@ const ImportingModelModal: React.FC = () => {
   const { importModel } = useImportModel()
   const updateImportingModelStatus = useSetAtom(updateImportingModelStatusAtom)
   const importOption = useAtomValue(selectedImportModelOptionTypeAtom)
-  const isImportingModel = useRef(false) // TODO: might need to delete this, using WAITING status instead
+  const isImportingModel = useRef(false)
 
   const modelFolder = useMemo(() => {
     return `${janDataFolder}/models`
@@ -97,11 +97,12 @@ const ImportingModelModal: React.FC = () => {
     // TODO: handle failed case
   }
 
+  const onOpenModelFolderClick = useCallback(() => {
+    openFileExplorer(modelFolder)
+  }, [modelFolder])
+
   return (
-    <Modal
-      open={importModelStage === 'IMPORTING_MODEL'}
-      onOpenChange={() => {}}
-    >
+    <Modal open={importModelStage === 'IMPORTING_MODEL'}>
       <ModalContent>
         <ModalHeader>
           <ModalTitle>
@@ -109,7 +110,11 @@ const ImportingModelModal: React.FC = () => {
           </ModalTitle>
           <div className="flex flex-row space-x-2 items-center">
             <label className="text-xs text-[#71717A]">{modelFolder}</label>
-            <Button themes="ghost" className="text-blue-500">
+            <Button
+              themes="ghost"
+              className="text-blue-500"
+              onClick={onOpenModelFolderClick}
+            >
               {openFileTitle()}
             </Button>
           </div>

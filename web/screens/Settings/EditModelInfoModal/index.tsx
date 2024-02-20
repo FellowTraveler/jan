@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { openFileExplorer } from '@janhq/core'
 import {
   Modal,
   ModalContent,
@@ -74,6 +75,14 @@ const EditModelInfoModal: React.FC = () => {
     setEditingModelId(undefined)
   }
 
+  const modelFolderPath = useMemo(() => {
+    return `${janDataFolder}/models/${editingModel?.modelId}`
+  }, [janDataFolder, editingModel])
+
+  const onShowInFinderClick = useCallback(() => {
+    openFileExplorer(modelFolderPath)
+  }, [modelFolderPath])
+
   if (!editingModel) {
     setImportModelStage('IMPORTING_MODEL')
     setEditingModelId(undefined)
@@ -82,10 +91,7 @@ const EditModelInfoModal: React.FC = () => {
   }
 
   return (
-    <Modal
-      open={importModelStage === 'EDIT_MODEL_INFO'}
-      onOpenChange={() => onCancelClick()}
-    >
+    <Modal open={importModelStage === 'EDIT_MODEL_INFO'}>
       <ModalContent>
         <ModalHeader>
           <ModalTitle>Edit Model Information</ModalTitle>
@@ -99,13 +105,23 @@ const EditModelInfoModal: React.FC = () => {
           <div className="flex flex-col">
             <p>{editingModel.name}</p>
             <div className="flex flex-row">
-              <p>{toGibibytes(editingModel.size)}</p>
-              <p>Format</p>
-              <p>{editingModel.format}</p>
+              <span className="mr-2 text-[#71717A] text-sm">
+                {toGibibytes(editingModel.size)}
+              </span>
+              <span className="text-[#71717A] font-semibold text-sm">
+                Format:{' '}
+              </span>
+              <span className="text-[#71717A] text-sm font-normal">
+                {editingModel.format.toUpperCase()}
+              </span>
             </div>
-            <div className="flex flex-row mt-1 space-x-2">
-              <p>{janDataFolder}</p>
-              <p>{openFileTitle()}</p>
+            <div className="flex flex-row mt-1 space-x-2 items-center">
+              <span className="text-[#71717A] text-xs font-normal line-clamp-1">
+                {modelFolderPath}
+              </span>
+              <Button themes="ghost" onClick={onShowInFinderClick}>
+                {openFileTitle()}
+              </Button>
             </div>
           </div>
         </div>

@@ -364,23 +364,6 @@ const Advanced = () => {
         )}
 
         <DataFolder />
-        {/* Proxy */}
-        <div className="flex w-full items-start justify-between border-b border-border py-4 first:pt-0 last:border-none">
-          <div className="flex-shrink-0 space-y-1.5">
-            <div className="flex gap-x-2">
-              <h6 className="text-sm font-semibold capitalize">HTTPS Proxy</h6>
-            </div>
-            <p className="leading-relaxed">
-              Specify the HTTPS proxy or leave blank (proxy auto-configuration
-              and SOCKS not supported).
-            </p>
-            <Input
-              placeholder={'http://<user>:<password>@<domain or IP>:<port>'}
-              value={partialProxy}
-              onChange={onProxyChange}
-            />
-          </div>
-        </div>
 
         {/* Ignore SSL certificates */}
         <div className="flex w-full items-start justify-between border-b border-border py-4 first:pt-0 last:border-none">
