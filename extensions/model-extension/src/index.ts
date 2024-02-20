@@ -181,6 +181,19 @@ export default class JanModelExtension extends ModelExtension {
   async deleteModel(modelId: string): Promise<void> {
     try {
       const dirPath = await joinPath([JanModelExtension._homeDir, modelId])
+      const jsonFilePath = await joinPath([
+        dirPath,
+        JanModelExtension._modelMetadataFileName,
+      ])
+      const modelInfo = JSON.parse(
+        await this.readModelMetadata(jsonFilePath)
+      ) as Model
+
+      const isUserImportModel = modelInfo.metadata.author === 'User'
+      if (isUserImportModel) {
+        // just delete the folder
+        return fs.rmdirSync(dirPath)
+      }
 
       // remove all files under dirPath except model.json
       const files = await fs.readdirSync(dirPath)
