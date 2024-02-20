@@ -145,7 +145,7 @@ const ChatInput: React.FC = () => {
 
         <Textarea
           className={twMerge(
-            'max-h-[400px] resize-none pr-20',
+            'max-h-[400px] resize-none pr-20 line-clamp-1',
             fileUpload.length && 'rounded-t-none'
           )}
           style={{ height: '40px' }}

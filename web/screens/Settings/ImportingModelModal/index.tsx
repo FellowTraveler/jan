@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { ModelEvent, events } from '@janhq/core'
 import {
@@ -35,6 +35,10 @@ const ImportingModelModal: React.FC = () => {
   const updateImportingModelStatus = useSetAtom(updateImportingModelStatusAtom)
   const importOption = useAtomValue(selectedImportModelOptionTypeAtom)
   const isImportingModel = useRef(false) // TODO: might need to delete this, using WAITING status instead
+
+  const modelFolder = useMemo(() => {
+    return `${janDataFolder}/models`
+  }, [janDataFolder])
 
   useEffect(() => {
     const startImportingModels = async () => {
@@ -101,11 +105,13 @@ const ImportingModelModal: React.FC = () => {
       <ModalContent>
         <ModalHeader>
           <ModalTitle>
-            Importing model ({finishedImportModel} / {importingModels.length})
+            Importing model ({finishedImportModel}/{importingModels.length})
           </ModalTitle>
-          <div className="flex flex-row space-x-2">
-            <p>{janDataFolder}</p>
-            <p>{openFileTitle()}</p>
+          <div className="flex flex-row space-x-2 items-center">
+            <label className="text-xs text-[#71717A]">{modelFolder}</label>
+            <Button themes="ghost" className="text-blue-500">
+              {openFileTitle()}
+            </Button>
           </div>
         </ModalHeader>
         {!isImportSuccessAllModels && (

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useDropzone } from 'react-dropzone'
 
-import { Input, ScrollArea } from '@janhq/uikit'
+import { Button, Input, ScrollArea } from '@janhq/uikit'
 
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { SearchIcon, UploadCloudIcon } from 'lucide-react'
+import { Plus, SearchIcon, UploadCloudIcon } from 'lucide-react'
 
 import { twMerge } from 'tailwind-merge'
 
@@ -22,13 +22,15 @@ import ImportModelOptionModal from '../ImportModelOptionModal'
 
 import ImportingModelModal from '../ImportingModelModal'
 
+import SelectingModelModal from '../SelectingModelModal'
+
 import RowModel from './Row'
 
 import { downloadedModelsAtom } from '@/helpers/atoms/Model.atom'
 
 const Column = ['Name', 'Model ID', 'Size', 'Version', 'Status', '']
 
-export type ImportingModelStatus = 'IMPORTING' | 'IMPORTED'
+export type ImportingModelStatus = 'IMPORTING' | 'IMPORTED' | 'FAILED'
 
 export type ImportingModel = {
   id: string
@@ -137,6 +139,10 @@ const Models: React.FC = () => {
     },
   })
 
+  const onImportModelClick = useCallback(() => {
+    setImportModelStage('SELECTING_MODEL')
+  }, [setImportModelStage])
+
   return (
     <ScrollArea className="w-full h-full" {...getRootProps()}>
       {isDragActive && (
@@ -159,7 +165,7 @@ const Models: React.FC = () => {
         </div>
       )}
       <div className="rounded-xl border border-border shadow-sm m-4">
-        <div className="px-6 py-5">
+        <div className="flex flex-row px-6 py-5 justify-between">
           <div className="relative w-1/3">
             <SearchIcon
               size={20}
@@ -173,6 +179,15 @@ const Models: React.FC = () => {
               }}
             />
           </div>
+
+          <Button
+            themes={'outline'}
+            className="space-x-2"
+            onClick={onImportModelClick}
+          >
+            <Plus className="w-3 h-3" />
+            <p>Import Model</p>
+          </Button>
         </div>
         <table className="relative w-full px-8">
           <thead className="w-full border-b border-border bg-secondary">
@@ -196,6 +211,7 @@ const Models: React.FC = () => {
           </tbody>
         </table>
 
+        {importModelStage === 'SELECTING_MODEL' && <SelectingModelModal />}
         {importModelStage === 'MODEL_SELECTED' && <ImportModelOptionModal />}
         {importModelStage === 'IMPORTING_MODEL' && <ImportingModelModal />}
         {importModelStage === 'EDIT_MODEL_INFO' && <EditModelInfoModal />}

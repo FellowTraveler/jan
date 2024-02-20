@@ -13,6 +13,7 @@ import { extensionManager } from '@/extension'
 
 export type ImportModelStage =
   | 'NONE'
+  | 'SELECTING_MODEL'
   | 'MODEL_SELECTED'
   | 'IMPORTING_MODEL'
   | 'EDIT_MODEL_INFO'
